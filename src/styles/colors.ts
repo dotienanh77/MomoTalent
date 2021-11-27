@@ -1,0 +1,20 @@
+export const colors = {
+  PRIMARY: '#14213D',
+  SECONDARY: '#FCA311',
+  BLACK: '#1B1B1B',
+  BODY: '#646464',
+  GREY: '#EEEEEE',
+  LINE: '#F8F8F8',
+  WHITE: '#FFFFFF',
+  ERROR: '#C93D40',
+  SUCCESS: '#03A65A',
+  PURPLE: '#0051FF',
+  LINEAR: [
+    'rgba(179, 179, 179, 0.5)',
+    'rgba(204, 204, 204, 0.25)',
+    'rgba(255, 255, 255, 0.7)',
+    'rgba(255, 255, 255, 0.8)',
+    'rgba(255, 255, 255, 0.9)',
+    'rgba(255, 255, 255, 1)',
+  ],
+};
