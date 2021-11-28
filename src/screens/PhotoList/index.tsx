@@ -1,6 +1,8 @@
+import { apiGetList, SInfoOptions } from '@constants';
 import { colors, responsive, typos } from '@styles';
 import { IPhoto, PhotoListNavigationProp } from '@types';
-import React from 'react';
+import { nonAccentVietnamese } from '@utils';
+import React, { useEffect, useState } from 'react';
 import {
   FlatList,
   Image,
@@ -10,139 +12,60 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import SInfo from 'react-native-sensitive-info';
+
 interface Props {
   navigation: PhotoListNavigationProp;
 }
 const keyExtractor = (item: IPhoto) => String(item.id);
 export const PhotoListScreen = (props: Props) => {
+  const [photoList, setPhotoList] = useState([]);
+  const [search, setSearch] = useState('');
   const { navigation } = props;
-  const {} = props;
-  const listData = [
-    {
-      albumId: 1,
-      id: 1,
-      title: 'accusamus beatae ad facilis cum similique qui sunt',
-      url: 'https://via.placeholder.com/600/92c952',
-      thumbnailUrl: 'https://via.placeholder.com/150/92c952',
-    },
-    {
-      albumId: 1,
-      id: 2,
-      title: 'reprehenderit est deserunt velit ipsam',
-      url: 'https://via.placeholder.com/600/771796',
-      thumbnailUrl: 'https://via.placeholder.com/150/771796',
-    },
-    {
-      albumId: 1,
-      id: 3,
-      title: 'officia porro iure quia iusto qui ipsa ut modi',
-      url: 'https://via.placeholder.com/600/24f355',
-      thumbnailUrl: 'https://via.placeholder.com/150/24f355',
-    },
-    {
-      albumId: 1,
-      id: 4,
-      title: 'culpa odio esse rerum omnis laboriosam voluptate repudiandae',
-      url: 'https://via.placeholder.com/600/d32776',
-      thumbnailUrl: 'https://via.placeholder.com/150/d32776',
-    },
-    {
-      albumId: 1,
-      id: 5,
-      title: 'natus nisi omnis corporis facere molestiae rerum in',
-      url: 'https://via.placeholder.com/600/f66b97',
-      thumbnailUrl: 'https://via.placeholder.com/150/f66b97',
-    },
-    {
-      albumId: 1,
-      id: 6,
-      title: 'accusamus ea aliquid et amet sequi nemo',
-      url: 'https://via.placeholder.com/600/56a8c2',
-      thumbnailUrl: 'https://via.placeholder.com/150/56a8c2',
-    },
-    {
-      albumId: 1,
-      id: 7,
-      title: 'officia delectus consequatur vero aut veniam explicabo molestias',
-      url: 'https://via.placeholder.com/600/b0f7cc',
-      thumbnailUrl: 'https://via.placeholder.com/150/b0f7cc',
-    },
-    {
-      albumId: 1,
-      id: 8,
-      title: 'aut porro officiis laborum odit ea laudantium corporis',
-      url: 'https://via.placeholder.com/600/54176f',
-      thumbnailUrl: 'https://via.placeholder.com/150/54176f',
-    },
-    {
-      albumId: 1,
-      id: 9,
-      title: 'qui eius qui autem sed',
-      url: 'https://via.placeholder.com/600/51aa97',
-      thumbnailUrl: 'https://via.placeholder.com/150/51aa97',
-    },
-    {
-      albumId: 1,
-      id: 10,
-      title: 'beatae et provident et ut vel',
-      url: 'https://via.placeholder.com/600/810b14',
-      thumbnailUrl: 'https://via.placeholder.com/150/810b14',
-    },
-    {
-      albumId: 1,
-      id: 11,
-      title: 'nihil at amet non hic quia qui',
-      url: 'https://via.placeholder.com/600/1ee8a4',
-      thumbnailUrl: 'https://via.placeholder.com/150/1ee8a4',
-    },
-    {
-      albumId: 1,
-      id: 12,
-      title:
-        'mollitia soluta ut rerum eos aliquam consequatur perspiciatis maiores',
-      url: 'https://via.placeholder.com/600/66b7d2',
-      thumbnailUrl: 'https://via.placeholder.com/150/66b7d2',
-    },
-    {
-      albumId: 1,
-      id: 13,
-      title: 'repudiandae iusto deleniti rerum',
-      url: 'https://via.placeholder.com/600/197d29',
-      thumbnailUrl: 'https://via.placeholder.com/150/197d29',
-    },
-    {
-      albumId: 1,
-      id: 14,
-      title: 'est necessitatibus architecto ut laborum',
-      url: 'https://via.placeholder.com/600/61a65',
-      thumbnailUrl: 'https://via.placeholder.com/150/61a65',
-    },
-    {
-      albumId: 1,
-      id: 15,
-      title: 'harum dicta similique quis dolore earum ex qui',
-      url: 'https://via.placeholder.com/600/f9cee5',
-      thumbnailUrl: 'https://via.placeholder.com/150/f9cee5',
-    },
-    {
-      albumId: 1,
-      id: 16,
-      title:
-        'iusto sunt nobis quasi veritatis quas expedita voluptatum deserunt',
-      url: 'https://via.placeholder.com/600/fdf73e',
-      thumbnailUrl: 'https://via.placeholder.com/150/fdf73e',
-    },
-  ];
-  const renderItem = ({ item }: { item: IPhoto }) => {
+  const getData = async () => {
+    const token = await SInfo.getItem('token', SInfoOptions);
+    try {
+      const res = await fetch(apiGetList, {
+        method: 'GET',
+        headers: {
+          token: token,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+      const resJ = await res.json();
+      setPhotoList(resJ);
+    } catch (error) {
+      console.log('===============================================');
+      console.log('error', error);
+      console.log('===============================================');
+    }
+  };
+  useEffect(() => {
+    getData();
+  }, []);
+  const searchList = photoList.filter((item: IPhoto) => {
+    const searchValue = nonAccentVietnamese(search);
+    const title = nonAccentVietnamese(item.title || '');
+    return title.includes(searchValue);
+  });
+  const onChangeText = (value: string) => {
+    setSearch(value);
+  };
+  const renderItem = ({ item, index }: { item: IPhoto; index: number }) => {
     const onDetail = () => {
       navigation.navigate('PhotoDetail');
     };
+    const backgroundColor = index % 2 !== 0 ? colors.CYAN : colors.SILVER;
     return (
-      <TouchableOpacity style={styles.photoItem} onPress={onDetail}>
+      <TouchableOpacity
+        style={[styles.photoItem, { backgroundColor }]}
+        onPress={onDetail}
+      >
         <Image
           style={styles.image}
           source={{
-            uri: 'https://via.placeholder.com/600/92c952',
+            uri: item?.thumbnailUrl || '',
           }}
         />
         <Text style={styles.title}>{item.title}</Text>
@@ -153,13 +76,16 @@ export const PhotoListScreen = (props: Props) => {
   return (
     <View style={styles.container}>
       <TextInput
+        value={search}
         placeholder={'Tìm kiếm...'}
+        onChangeText={onChangeText}
         placeholderTextColor={colors.DARK}
         style={styles.input}
       />
       <FlatList
+        bounces={false}
         showsVerticalScrollIndicator={false}
-        data={listData}
+        data={searchList}
         renderItem={renderItem}
         keyExtractor={keyExtractor}
       />
@@ -168,21 +94,22 @@ export const PhotoListScreen = (props: Props) => {
 };
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    flex: 1,
+    backgroundColor: colors.WHITE,
   },
   input: {
+    ...typos.lg.regular,
     marginTop: responsive(20),
+    alignSelf: 'center',
     backgroundColor: colors.WHITE,
     marginBottom: responsive(60),
     paddingLeft: responsive(20),
     width: responsive(335),
-    ...typos.lg.regular,
+    height: responsive(60),
     borderColor: colors.DARK,
     borderWidth: responsive(2),
   },
   photoItem: {
-    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: responsive(20),
@@ -196,6 +123,6 @@ const styles = StyleSheet.create({
   title: {
     ...typos.sm.regular,
     marginLeft: responsive(20),
-    width: responsive(270),
+    flex: 1,
   },
 });

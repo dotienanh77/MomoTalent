@@ -1,7 +1,7 @@
 import { AuthContext } from '@contexts';
 import { colors, typos } from '@styles';
 import React, { useContext } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { RootStack } from './navigator';
 import { renderAuthStack } from './renderAuth';
 import { renderHome } from './renderHome';
@@ -34,7 +34,7 @@ export const RootApp = () => {
           headerTitleStyle: styles.title,
           headerTitleAlign: 'center',
           headerLeft: () => {
-            return null;
+            return <View />;
           },
           title: '',
         };

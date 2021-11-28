@@ -1,6 +1,8 @@
 import { BottomButton } from '@components';
+import { apiLogin } from '@constants';
 import { AuthContext } from '@contexts';
 import { colors, responsive, typos } from '@styles';
+import { isValidEmail } from '@utils';
 import React, { useContext, useState } from 'react';
 import { Alert, StyleSheet, TextInput, View } from 'react-native';
 
@@ -18,7 +20,7 @@ export const LoginScreen = () => {
   };
   const onLogin = async () => {
     try {
-      const res = await fetch('https://reqres.in/api/login', {
+      const res = await fetch(apiLogin, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -41,10 +43,16 @@ export const LoginScreen = () => {
       console.log('===============================================');
     }
   };
+  const onBlur = () => {
+    isValidEmail(userName)
+      ? null
+      : Alert.alert('Sai định dạng! \nVui lòng nhập lại Email');
+  };
   return (
     <View style={styles.container}>
       <View style={styles.wrapInput}>
         <TextInput
+          onBlur={onBlur}
           placeholder={'Username'}
           onChangeText={onChangeTextUserName}
           placeholderTextColor={colors.DARK}
@@ -73,6 +81,7 @@ const styles = StyleSheet.create({
     marginBottom: responsive(20),
     marginHorizontal: responsive(20),
     paddingLeft: responsive(20),
+    height: responsive(60),
     ...typos.lg.regular,
   },
 });
