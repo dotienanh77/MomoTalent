@@ -1,8 +1,10 @@
+import { AuthContext } from '@contexts';
+import { colors, typos } from '@styles';
 import React, { useContext } from 'react';
+import { StyleSheet } from 'react-native';
 import { RootStack } from './navigator';
 import { renderAuthStack } from './renderAuth';
 import { renderHome } from './renderHome';
-import { AuthContext } from '@contexts';
 
 export * from './navigator';
 
@@ -24,9 +26,16 @@ export const RootApp = () => {
   return (
     <RootStack.Navigator
       screenOptions={(props) => {
-        const {} = props;
+        const { route } = props;
         return {
-          headerShown: false,
+          headerShown:
+            route.name === 'PhotoList' || route.name === 'PhotoDetail',
+          headerStyle: styles.header,
+          headerTitleStyle: styles.title,
+          headerTitleAlign: 'center',
+          headerLeft: () => {
+            return null;
+          },
           title: '',
         };
       }}
@@ -35,3 +44,12 @@ export const RootApp = () => {
     </RootStack.Navigator>
   );
 };
+const styles = StyleSheet.create({
+  header: {
+    backgroundColor: colors.PINK,
+    elevation: 0,
+    shadowColor: colors.WHITE,
+    shadowOpacity: 0,
+  },
+  title: { ...typos.lg.regular, color: colors.WHITE },
+});

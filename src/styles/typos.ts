@@ -18,16 +18,16 @@ export const typos = {
   lg: {
     regular: {
       ...regular,
-      fontSize: responsive(72),
-      lineHeight: responsive(84),
+      fontSize: responsive(18),
+      lineHeight: responsive(18),
     },
-    bold: { ...bold, fontSize: responsive(72), lineHeight: responsive(84) },
+    bold: { ...bold, fontSize: responsive(23), lineHeight: responsive(27) },
   },
   sm: {
     regular: {
       ...regular,
-      fontSize: responsive(64),
-      lineHeight: responsive(75),
+      fontSize: responsive(17),
+      lineHeight: responsive(18),
     },
   },
 };

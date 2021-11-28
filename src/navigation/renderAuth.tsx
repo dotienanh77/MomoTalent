@@ -11,7 +11,7 @@ export const renderAuthStack = () => {
         name="Login"
         component={LoginScreen}
         options={{
-          title: 'Đăng nhập',
+          title: '',
         }}
       />
     </>
