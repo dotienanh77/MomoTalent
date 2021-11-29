@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 import SInfo from 'react-native-sensitive-info';
 import { BottomButton } from '@components';
 import { FocusAwareStatusBar } from '@base';
@@ -43,9 +43,6 @@ export const PhotoDetailScreen = (props: Props) => {
   return (
     <View style={styles.container}>
       <FocusAwareStatusBar />
-      {/* <View style={styles.header}>
-        <Text>{photo?.title}</Text>
-      </View> */}
       <Image
         source={{
           uri: photo?.url,

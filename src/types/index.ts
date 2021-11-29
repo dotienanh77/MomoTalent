@@ -1,3 +1,3 @@
-export * from './auth';
+export * from './contexts';
 export * from './navigation';
-export * from './photo';
+export * from './components';
