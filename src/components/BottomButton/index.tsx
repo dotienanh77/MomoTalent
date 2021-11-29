@@ -1,6 +1,6 @@
-import { colors, responsive, typos, width } from '@styles';
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { colors, responsive, typos, width } from '@styles';
 interface Props {
   title?: string;
   onPress: () => void;

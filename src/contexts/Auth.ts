@@ -1,6 +1,5 @@
-import { createContext } from 'react';
-
 import { AuthState, IUser } from '@types';
+import { createContext } from 'react';
 
 interface IAuthContext {
   login: (argument: { token: string; user: IUser }) => void;

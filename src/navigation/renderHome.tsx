@@ -1,6 +1,6 @@
-import { PhotoDetailScreen, PhotoListScreen } from '@screens';
 import React from 'react';
 import { RootStack } from './navigator';
+import { PhotoDetailScreen, PhotoListScreen } from '@screens';
 
 export const renderHome = () => {
   return (
@@ -16,7 +16,7 @@ export const renderHome = () => {
         name="PhotoDetail"
         component={PhotoDetailScreen}
         options={{
-          title: 'Tiêu đề ảnh',
+          title: '',
         }}
       />
     </>

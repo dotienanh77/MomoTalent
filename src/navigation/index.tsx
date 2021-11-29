@@ -1,10 +1,10 @@
-import { AuthContext } from '@contexts';
-import { colors, typos } from '@styles';
 import React, { useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { AuthContext } from '@contexts';
 import { RootStack } from './navigator';
 import { renderAuthStack } from './renderAuth';
 import { renderHome } from './renderHome';
+import { colors, typos } from '@styles';
 
 export * from './navigator';
 

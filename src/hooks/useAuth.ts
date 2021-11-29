@@ -1,10 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useMemo, useReducer } from 'react';
-
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import SInfo from 'react-native-sensitive-info';
-// import SplashScreen from 'react-native-splash-screen';
-
 import { AsyncStorageKey, SInfoOptions } from '@constants';
 import { AuthState, IUser } from '@types';
 

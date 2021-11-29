@@ -1,10 +1,10 @@
-import { BottomButton } from '@components';
-import { apiLogin } from '@constants';
-import { AuthContext } from '@contexts';
-import { colors, responsive, typos } from '@styles';
-import { isValidEmail } from '@utils';
 import React, { useContext, useState } from 'react';
 import { Alert, StyleSheet, TextInput, View } from 'react-native';
+import { AuthContext } from '@contexts';
+import { BottomButton } from '@components';
+import { apiLogin } from '@constants';
+import { isValidEmail } from '@utils';
+import { colors, responsive, typos } from '@styles';
 
 export const LoginScreen = () => {
   const { login } = useContext(AuthContext);

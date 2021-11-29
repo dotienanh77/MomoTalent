@@ -1,10 +1,11 @@
-import { BottomButton } from '@components';
-import { apiGetDetail, SInfoOptions } from '@constants';
-import { colors, responsive, width } from '@styles';
-import { IPhoto, PhotoDetailNavigationProp } from '@types';
 import React, { useEffect, useState } from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 import SInfo from 'react-native-sensitive-info';
+import { BottomButton } from '@components';
+import { FocusAwareStatusBar } from '@base';
+import { apiGetDetail, SInfoOptions } from '@constants';
+import { IPhoto, PhotoDetailNavigationProp } from '@types';
+import { colors, responsive, width } from '@styles';
 interface Props {
   navigation: PhotoDetailNavigationProp;
 }
@@ -36,11 +37,15 @@ export const PhotoDetailScreen = (props: Props) => {
   useEffect(() => {
     getData();
   }, []);
-  console.log('===============================================');
-  console.log('photo', photo);
-  console.log('===============================================');
+  useEffect(() => {
+    navigation.setOptions({ title: photo?.title });
+  }, [navigation, photo?.title]);
   return (
     <View style={styles.container}>
+      <FocusAwareStatusBar />
+      {/* <View style={styles.header}>
+        <Text>{photo?.title}</Text>
+      </View> */}
       <Image
         source={{
           uri: photo?.url,
@@ -57,6 +62,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: colors.WHITE,
+  },
+  header: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.PINK,
+    height: responsive(88),
+    width,
   },
   image: {
     flex: 1,
